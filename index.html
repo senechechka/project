@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Кіцмань — Визначні пам’ятки архітектури та історичні місця</title>
+    <meta
+      name="description"
+      content="Історико-архітектурний путівник містом Кіцмань: пам’ятник Володимиру Івасюку, ратуша 1890 року, Свято-Миколаївська церква, костел, магістрат, музей та 3D-прогулянка вулицями."
+    />
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="marble-canvas-bg" aria-hidden="true"></div>
+    <div class="marble-veins-overlay" aria-hidden="true"></div>
+    <canvas id="antique-ash-canvas" class="antique-ash-canvas" aria-hidden="true"></canvas>
+
+    <!-- Minimalist White-Gray Marble Topbar -->
+    <header class="topbar" id="topbar">
+      <div class="container topbar-inner">
+        <a href="#hero" class="brand-mark">
+          <img
+            src="images/kitsman-herb.png"
+            alt="Герб міста Кіцмань"
+            class="brand-crest"
+          />
+          <span class="brand-text">
+            <span class="brand-title">Кіцмань</span>
+            <span class="brand-sub">Буковина · 1413</span>
+          </span>
+        </a>
+
+        <nav class="topnav" aria-label="Навігація по сторінці">
+          <a href="#landmarks">Пам’ятки архітектури</a>
+          <a href="#essay">Історичний нарис</a>
+          <a href="#chronicle">Хроніка міста</a>
+          <a href="#route">Прогулянка вулицями</a>
+          <a href="#ivasiuk-legacy">Спадщина Івасюка</a>
+        </nav>
+      </div>
+      <div class="scroll-progress-track" aria-hidden="true">
+        <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section with Massive Sculpted 3D Bronze Statue of Volodymyr Ivasyuk -->
+      <section class="hero-runway" id="hero" aria-label="Вступ та 3D-скульптура Володимира Івасюка">
+        <div class="hero-sticky">
+          <div class="container hero-grid">
+            <div class="hero-editorial">
+              <span class="stone-kicker">
+                МІСТО КІЦМАНЬ · ІСТОРИЧНА СПАДЩИНА
+              </span>
+              <h1 class="hero-title">
+                Визначні пам’ятки <em>архітектури</em> та історичні місця
+              </h1>
+              <p class="hero-lead">
+                Стародавнє буковинське містечко над Совицею, вперше згадане
+                1413 року, зберегло затишний кам’яний центр австрійської доби та
+                подарувало світу генія української пісні — Володимира Івасюка.
+              </p>
+
+              <div class="hero-actions">
+                <a href="#landmarks" class="btn-stone btn-stone--primary">
+                  До галереї пам’яток
+                  <span aria-hidden="true">↓</span>
+                </a>
+                <a href="#route" class="btn-stone btn-stone--ghost">
+                  Прогулятися вулицями
+                </a>
+              </div>
+
+              <div class="hero-stats">
+                <div>
+                  <span class="hero-stat-val">1413</span>
+                  <span class="hero-stat-label">перша писемна згадка про місто</span>
+                </div>
+                <div>
+                  <span class="hero-stat-val">1890</span>
+                  <span class="hero-stat-label">рік зведення міської ратуші</span>
+                </div>
+                <div>
+                  <span class="hero-stat-val">9</span>
+                  <span class="hero-stat-label">ключових пам’яток у атласі</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-statue-stage">
+              <div class="statue-pedestal-aura" aria-hidden="true"></div>
+              <div
+                class="statue-canvas-wrap"
+                id="statue-canvas-wrap"
+                title="Потягніть для огляду або прокрутіть сторінку вниз"
+              ></div>
+
+              <div class="statue-fallback" id="statue-fallback" hidden>
+                <img
+                  src="images/ivasiuk-monument-1.jpg"
+                  alt="Пам’ятник Володимиру Івасюку у Кіцмані"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-scroll-cue" id="hero-scroll-cue" aria-hidden="true">
+            <span class="scroll-cue-line"></span>
+            <span>Гортайте вниз — монумент обертається</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architectural Landmarks Tabbed Showcase (Fast Lateral Blur-Slide, No Zoom) -->
+      <section class="section-block" id="landmarks">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="stone-kicker">АРХІТЕКТУРНИЙ АТЛАС</span>
+              <h2 class="section-title">Історичні будівлі, храми та пам’ятки Кіцманя</h2>
+            </div>
+            <p class="section-subtitle">
+              Оберіть вкладку або скористайтеся бічними стрілками для швидкого
+              перегляду дев’яти головних пам’яток міста.
+            </p>
+          </div>
+
+          <div class="tabs-toolbar">
+            <div
+              class="landmark-tabs"
+              id="landmark-tabs"
+              role="tablist"
+              aria-label="Вкладки історичних пам’яток Кіцманя"
+            ></div>
+          </div>
+
+          <!-- Rounded Marble Exhibition Card -->
+          <div
+            class="showcase-card"
+            id="landmark-showcase-card"
+            tabindex="0"
+            aria-live="polite"
+          >
+            <button
+              type="button"
+              class="showcase-arrow showcase-arrow--prev"
+              id="showcase-prev"
+              aria-label="Попередня пам’ятка"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M19 12H5" />
+                <path d="M12 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <div class="showcase-grid">
+              <!-- Left Column: Rounded Photo Frame -->
+              <div class="blur-swap-target" id="showcase-media-blur">
+                <figure class="showcase-photo-frame">
+                  <img id="showcase-photo" src="images/ratusha.jpg" alt="" />
+                  <figcaption class="showcase-photo-caption">
+                    <span id="showcase-photo-tag">вул. Незалежності, 57 · 1890 р.</span>
+                    <button
+                      type="button"
+                      class="showcase-zoom-btn"
+                      id="showcase-zoom-btn"
+                    >
+                      Збільшити
+                    </button>
+                  </figcaption>
+                </figure>
+                <div class="showcase-meta-foot">
+                  <span id="showcase-counter">01 / 09</span>
+                  <span id="showcase-photo-credit">Wikimedia Commons</span>
+                </div>
+              </div>
+
+              <!-- Right Column: Architectural & Historical Text -->
+              <div class="blur-swap-target" id="showcase-text-blur">
+                <span class="showcase-category" id="showcase-category"></span>
+                <h3 class="showcase-title" id="showcase-title"></h3>
+
+                <div class="showcase-specs">
+                  <div>
+                    <span class="spec-label">Датування</span>
+                    <span class="spec-value" id="showcase-year"></span>
+                  </div>
+                  <div>
+                    <span class="spec-label">Розташування</span>
+                    <span class="spec-value" id="showcase-address"></span>
+                  </div>
+                  <div>
+                    <span class="spec-label">Статус</span>
+                    <span class="spec-value" id="showcase-status"></span>
+                  </div>
+                </div>
+
+                <p class="showcase-paragraph" id="showcase-summary"></p>
+                <p class="showcase-paragraph" id="showcase-history"></p>
+
+                <div class="showcase-detail-box">
+                  <strong id="showcase-detail-label">Архітектурна деталь</strong>
+                  <p id="showcase-detail-text"></p>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="showcase-arrow showcase-arrow--next"
+              id="showcase-next"
+              aria-label="Наступна пам’ятка"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14" />
+                <path d="M12 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            <div class="showcase-dots" id="showcase-dots" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Historical Essay Section (Rich Narrative Reading Prose) -->
+      <section class="section-block" id="essay">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="stone-kicker">ІСТОРИЧНИЙ НАРИС</span>
+              <h2 class="section-title">Місто над Совицею: камінь, культура та пам’ять</h2>
+            </div>
+            <p class="section-subtitle">
+              Розгорнута історія становлення Кіцманя — від середньовічних грамот
+              Шипинської землі до архітектурної гармонії сучасної Буковини.
+            </p>
+          </div>
+
+          <div class="essay-container reveal-on-scroll">
+            <article class="essay-chapter">
+              <span class="essay-chapter-kicker">РОЗДІЛ I · ВИТОКИ ТА МАГІСТРАЛЬ ЧАСУ</span>
+              <h3 class="essay-chapter-title">Від «великого Коцмана» 1413 року до цісарського містечка</h3>
+              <p class="essay-prose essay-dropcap">
+                Історія Кіцманя бере початок у родючій долині річки Совиці —
+                лівій притоці Пруту, яка століттями слугувала природним
+                шляхом між Карпатами та Подністров’ям. Перша документальна згадка
+                про місто датується 6 червня 1413 року: у грамоті молдавського
+                господаря Олександра Доброго поселення вже названо «великим
+                Коцманом із присілками», що переконливо доводить існування тут
+                розвиненого осередку задовго до XV століття, ще в часи давньої
+                Шипинської землі.
+              </p>
+              <p class="essay-prose">
+                Попри війни та зміни кордонів, справжній урбаністичний злет
+                почався після 1774 року, коли Буковина увійшла до складу
+                Австрійської імперії. Відкриття великого ярмарку 1788 року та
+                надання цісарем Францом II статусу міста-ярмарку в липні 1798
+                року перетворили Кіцмань на жвавий торговельно-адміністративний
+                вузол. Саме вздовж давнього поштового тракту (нинішньої вулиці
+                Незалежності) почали виростати муровані будинки уряду, судів,
+                пошти та ремісничих цехів.
+              </p>
+            </article>
+
+            <article class="essay-chapter">
+              <span class="essay-chapter-kicker">РОЗДІЛ II · АРХІТЕКТУРНИЙ АНСАМБЛЬ</span>
+              <h3 class="essay-chapter-title">Як австрійська доба сформувала кам’яний центр</h3>
+              <p class="essay-prose">
+                На відміну від великих індустріальних центрів, Кіцмань зберіг
+                масштаб затишної європейської провінції рубежу XIX–XX століть.
+                Його серцем стала мініатюрна одноповерхова ратуша 1890 року з
+                арковим балконом під шпилем і міським гербом. Неподалік постали
+                будинок пошти з кованим флюгером «1890.», парадний магістрат із
+                круглим годинником на аттику та солідний двоповерховий повітовий
+                суд (1904–1905), чиї рустовані фасади й нині визначають ритм
+                головної вулиці.
+              </p>
+              <p class="essay-prose">
+                Унікальності міському ландшафту надає мирне сусідство двох
+                історичних святинь XIX століття: костелу Матері Божої Цариці
+                (1826), відновленого громадою на початку XXI століття, та
+                величного Свято-Миколаївського храму (1876) із напівдерев’яною
+                дзвіницею. Доповнена залізничною станцією та школами, ця
+                забудова пережила два світових потрясіння й залишилася живим
+                документом історії Північної Буковини.
+              </p>
+            </article>
+
+            <article class="essay-chapter essay-chapter--wide">
+              <span class="essay-chapter-kicker">РОЗДІЛ III · СИМВОЛ МІСТА</span>
+              <h3 class="essay-chapter-title">Кіцманська весна української пісні</h3>
+              <div class="essay-wide-cols">
+                <p class="essay-prose">
+                  Серед усіх історичних постатей краю особливе місце належить
+                  Володимиру Івасюку — митцю, який народився в Кіцмані 4 березня
+                  1949 року. Його дитинство минало в атмосфері українського слова
+                  й музики, яку творили батько Михайло Івасюк та мати Софія. У
+                  п’ятирічному віці Володя став одним із перших учнів новоствореної
+                  Кіцманської музичної школи: спершу опановував скрипку, а згодом
+                  і фортепіано. Саме тут у шкільні роки він заснував ансамбль
+                  «Буковинка» і написав перші мелодії, з яких згодом виросли
+                  безсмертні «Червона рута» та «Водограй».
+                </p>
+                <div>
+                  <p class="essay-prose">
+                    Сьогодні пам’ять про композитора пронизує весь простір
+                    міста: від білої родинної садиби з меморіальною дошкою та
+                    експозиції у Кіцманському історичному музеї — до бронзового
+                    монумента зі скрипкою на центральній площі. Для кожного
+                    мандрівника Кіцмань відкривається не просто як місто
+                    австрійської архітектури, а як жива колиска української
+                    естрадної культури.
+                  </p>
+                  <blockquote class="essay-quote">
+                    «Кіцмань — місто, де кам’яний літопис австрійських фасадів
+                    органічно переплітається з вічною мелодією буковинської
+                    пісні.»
+                  </blockquote>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Historical Chronicle Section -->
+      <section class="section-block" id="chronicle">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="stone-kicker">ХРОНІКА СТОЛІТЬ</span>
+              <h2 class="section-title">Від Шипинської землі до сучасності</h2>
+            </div>
+            <p class="section-subtitle">
+              Дев’ять ключових історичних епох, які сформували кам’яну
+              архітектуру, духовне життя та культурну славу Кіцманя.
+            </p>
+          </div>
+
+          <div class="chronicle-grid" id="chronicle-list"></div>
+        </div>
+      </section>
+
+      <!-- Cultural Identity, Legends & Region Section -->
+      <section class="section-block" id="culture">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="stone-kicker">ІСТОРІЯ ТА КУЛЬТУРА КРАЮ</span>
+              <h2 class="section-title">Легенди назви, постаті та околиці Кіцманя</h2>
+            </div>
+            <p class="section-subtitle">
+              Походження топоніма, життєпис Володимира Івасюка та найдавніші
+              архітектурні святині сусідніх сіл Кіцманщини.
+            </p>
+          </div>
+
+          <div class="culture-grid" id="culture-grid"></div>
+        </div>
+      </section>
+
+      <!-- Real Google Maps Street View of Kitsman -->
+      <section class="section-block" id="route">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="stone-kicker">GOOGLE STREET VIEW · КІЦМАНЬ</span>
+              <h2 class="section-title">Прогулянка вулицями Кіцманя</h2>
+            </div>
+            <p class="section-subtitle">
+              Справжній Google Перегляд вулиць трасою M19 (вул. Незалежності) та
+              сусідніми кварталами. Оглядайте панорами на 360° та переходьте між
+              локаціями міста.
+            </p>
+          </div>
+
+          <div class="route-layout">
+            <div class="sv-shell reveal-on-scroll">
+              <div class="gsv-hud-bar">
+                <div class="gsv-mode-group">
+                  <button
+                    type="button"
+                    class="gsv-btn-pill is-active"
+                    data-gsv-mode="sv"
+                  >
+                    Перегляд вулиць (Street View)
+                  </button>
+                  <button
+                    type="button"
+                    class="gsv-btn-pill"
+                    data-gsv-mode="map"
+                  >
+                    Карта Google Maps
+                  </button>
+                </div>
+
+                <div class="gsv-mode-group">
+                  <span class="sv-pill" id="gsv-address-pill">
+                    вул. Незалежності, 57 · м. Кіцмань
+                  </span>
+                </div>
+              </div>
+
+              <div class="gsv-viewport">
+                <iframe
+                  id="gsv-iframe"
+                  class="gsv-frame"
+                  title="Google Перегляд вулиць — Кіцмань"
+                  loading="lazy"
+                  allow="accelerometer; gyroscope"
+                  allowfullscreen
+                  referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+
+              <div class="sv-controls-hint">
+                <span>Натискайте стрілки на дорозі Google для руху вперед та крутіть панораму мишкою на 360°</span>
+                <span>Траса М19 · вул. Незалежності · Сквер Івасюка</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ivasyuk Memorial Heritage Duo -->
+          <div class="heritage-duo" id="ivasiuk-legacy">
+            <article class="heritage-card reveal-on-scroll">
+              <div
+                class="heritage-card-media"
+                data-lightbox-src="images/ivasiuk-monument-2.jpg"
+                data-lightbox-caption="Пам’ятник Володимиру Івасюку на центральній площі Кіцманя"
+              >
+                <img
+                  src="images/ivasiuk-monument-2.jpg"
+                  alt="Пам’ятник Володимиру Івасюку в сквері Кіцманя"
+                />
+              </div>
+              <div class="heritage-card-body">
+                <span class="spec-label">1999 · Центральний сквер</span>
+                <h3>Монумент Володимиру Івасюку</h3>
+                <p>
+                  Бронзова постать композитора зі скрипкою встановлена 4 березня
+                  1999 року до 50-річчя від дня його народження (скульптори
+                  Микола Посікіра, Любомир Яремчук, архітектор Михайло Федик).
+                  Саме цей образ втілено в 3D-скульптурі на початку сторінки.
+                </p>
+              </div>
+            </article>
+
+            <article class="heritage-card reveal-on-scroll">
+              <div
+                class="heritage-card-media"
+                data-lightbox-src="images/ivasiuk-house.jpg"
+                data-lightbox-caption="Родинна садиба в Кіцмані, де 4 березня 1949 року народився Володимир Івасюк"
+              >
+                <img
+                  src="images/ivasiuk-house.jpg"
+                  alt="Будинок у Кіцмані з меморіальною дошкою Володимиру Івасюку"
+                />
+              </div>
+              <div class="heritage-card-body">
+                <span class="spec-label">4 березня 1949 · Родинна садиба</span>
+                <h3>Будинок, де народився композитор</h3>
+                <p>
+                  У затишній білій оселі в Кіцмані в родині письменника Михайла
+                  Івасюка та вчительки Софії Карякіної минули перші роки автора
+                  «Червоної рути». Меморіальна дошка на фасаді нагадує про
+                  витоки української естрадної класики.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div
+      class="photo-lightbox"
+      id="photo-lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="lightbox-caption"
+      hidden
+    >
+      <div class="lightbox-frame">
+        <img id="lightbox-img" src="" alt="" />
+        <div class="lightbox-bar">
+          <span id="lightbox-caption"></span>
+          <button
+            type="button"
+            class="lightbox-close"
+            id="lightbox-close"
+            aria-label="Закрити перегляд"
+          >
+            ×
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-meta">
+          <strong>«Визначні пам’ятки архітектури та історичні місця міста Кіцмань»</strong>
+          <br />
+          Олімпіадний вебпроєкт з інформатики · Світлини архітектури: архів
+          Wikimedia Commons (CC BY / CC BY-SA). 3D-скульптура та віртуальна
+          прогулянка вулицями побудовані засобами WebGL (Three.js).
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/vendor/three.min.js"></script>
+    <script src="js/ash-particles.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/statue3d.js"></script>
+    <script src="js/google-streetview.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
