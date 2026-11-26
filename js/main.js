@@ -560,6 +560,29 @@
     });
   });
 
+  // --- 9. Scroll Reveal Animations ---
+  var revealEls = document.querySelectorAll('.reveal-on-scroll');
+  if ('IntersectionObserver' in window && revealEls.length) {
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.05, rootMargin: '0px 0px 40px 0px' }
+    );
+    revealEls.forEach(function (el) {
+      io.observe(el);
+    });
+  } else {
+    revealEls.forEach(function (el) {
+      el.classList.add('is-visible');
+    });
+  }
+
   // --- 10. Interactive Before/After Sliders (Education Page) ---
   document.querySelectorAll('.compare-container').forEach(function (box) {
     var range = box.querySelector('.compare-range');
