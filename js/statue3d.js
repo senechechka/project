@@ -378,7 +378,9 @@
     return violin;
   }
 
-  function buildIvasyukStatueScene(container, fallbackEl) {
+  function buildIvasyukStatueScene(container, fallbackEl, options) {
+    options = options || {};
+    var cursorFollowOnly = Boolean(options.cursorFollowOnly);
     if (typeof THREE === 'undefined') {
       if (fallbackEl) fallbackEl.hidden = false;
       return null;
@@ -1020,49 +1022,67 @@
     updateResize();
 
     var dom = renderer.domElement;
-    dom.addEventListener('pointerdown', function (e) {
-      if (state.scrollProgress > 0.35) return;
-      state.isDragging = true;
-      state.scrolledSinceDrag = false;
-      state.lastPointerX = e.clientX;
-      dom.setPointerCapture(e.pointerId);
-      dom.style.cursor = 'grabbing';
-    });
-
-    dom.addEventListener('pointermove', function (e) {
-      if (state.isDragging && typeof e.buttons === 'number' && (e.buttons & 1) === 0) {
-        endDrag();
-      }
-      var rect = container.getBoundingClientRect();
-      var nx = ((e.clientX - rect.left) / Math.max(rect.width, 1)) * 2 - 1;
-      var ny = ((e.clientY - rect.top) / Math.max(rect.height, 1)) * 2 - 1;
-      state.pointerTiltY = nx * 0.16;
-      state.pointerTiltX = ny * 0.04;
-
-      if (state.isDragging) {
-        var dx = e.clientX - state.lastPointerX;
+    if (cursorFollowOnly) {
+      dom.style.cursor = 'default';
+      window.addEventListener(
+        'mousemove',
+        function (e) {
+          var rect = container.getBoundingClientRect();
+          var cx = rect.left + rect.width / 2;
+          var cy = rect.top + rect.height / 2;
+          var nx = (e.clientX - cx) / Math.max(window.innerWidth * 0.5, 1);
+          var ny = (e.clientY - cy) / Math.max(window.innerHeight * 0.5, 1);
+          state.pointerTiltY = Math.max(-0.22, Math.min(0.22, nx * 0.22));
+          state.pointerTiltX = Math.max(-0.06, Math.min(0.06, ny * 0.05));
+        },
+        { passive: true }
+      );
+    } else {
+      dom.addEventListener('pointerdown', function (e) {
+        if (state.scrollProgress > 0.35) return;
+        state.isDragging = true;
+        state.scrolledSinceDrag = false;
         state.lastPointerX = e.clientX;
-        state.dragYaw += dx * 0.011;
-      }
-    });
+        dom.setPointerCapture(e.pointerId);
+        dom.style.cursor = 'grabbing';
+      });
 
-    function endDrag() {
-      state.isDragging = false;
-      dom.style.cursor = 'grab';
+      dom.addEventListener('pointermove', function (e) {
+        if (state.isDragging && typeof e.buttons === 'number' && (e.buttons & 1) === 0) {
+          endDrag();
+        }
+        var rect = container.getBoundingClientRect();
+        var nx = ((e.clientX - rect.left) / Math.max(rect.width, 1)) * 2 - 1;
+        var ny = ((e.clientY - rect.top) / Math.max(rect.height, 1)) * 2 - 1;
+        state.pointerTiltY = nx * 0.16;
+        state.pointerTiltX = ny * 0.04;
+
+        if (state.isDragging) {
+          var dx = e.clientX - state.lastPointerX;
+          state.lastPointerX = e.clientX;
+          state.dragYaw += dx * 0.011;
+        }
+      });
+
+      function endDrag() {
+        state.isDragging = false;
+        dom.style.cursor = 'grab';
+      }
+      dom.addEventListener('pointerup', endDrag);
+      dom.addEventListener('pointercancel', endDrag);
+      dom.addEventListener('lostpointercapture', endDrag);
+      window.addEventListener('pointerup', endDrag);
+      window.addEventListener('mouseup', endDrag);
+      window.addEventListener('blur', endDrag);
+      dom.addEventListener('pointerleave', function () {
+        state.pointerTiltX = 0;
+        state.pointerTiltY = 0;
+        endDrag();
+      });
     }
-    dom.addEventListener('pointerup', endDrag);
-    dom.addEventListener('pointercancel', endDrag);
-    dom.addEventListener('lostpointercapture', endDrag);
-    window.addEventListener('pointerup', endDrag);
-    window.addEventListener('mouseup', endDrag);
-    window.addEventListener('blur', endDrag);
-    dom.addEventListener('pointerleave', function () {
-      state.pointerTiltX = 0;
-      state.pointerTiltY = 0;
-      endDrag();
-    });
 
     function setScrollProgress(p) {
+      if (cursorFollowOnly) return;
       var clamped = Math.min(1, Math.max(0, p));
       state.scrollProgress = clamped;
       if (clamped > 0.12) {

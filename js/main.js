@@ -17,6 +17,11 @@
     statueController = window.initIvasyukStatue(statueContainer, statueFallback);
   }
 
+  var ivasyukSubStage = document.getElementById('ivasyuk-3d-stage');
+  if (ivasyukSubStage && typeof window.initIvasyukStatue === 'function') {
+    window.initIvasyukStatue(ivasyukSubStage, null, { cursorFollowOnly: true });
+  }
+
   function updateScrollEffects() {
     var scrollY = window.scrollY || window.pageYOffset || 0;
     var docHeight =
