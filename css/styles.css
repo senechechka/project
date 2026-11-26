@@ -1917,20 +1917,22 @@ main,
 }
 
 .archive-spotlight .stone-kicker {
-  color: rgba(246, 245, 242, 0.65);
+  color: rgba(246, 245, 242, 0.72);
 }
 
-.archive-spotlight h3 {
+.archive-spotlight h3,
+.archive-spotlight .story-body h3 {
   font-family: var(--font-serif);
   font-size: 1.85rem;
   margin: 8px 0 14px;
   color: #ffffff;
 }
 
-.archive-spotlight p {
+.archive-spotlight p,
+.archive-spotlight .story-body p {
   font-size: 0.95rem;
   line-height: 1.72;
-  color: rgba(246, 245, 242, 0.84);
+  color: rgba(246, 245, 242, 0.88);
   margin-bottom: 12px;
 }
 
