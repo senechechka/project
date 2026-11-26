@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <div class="marble-veil" aria-hidden="true"></div>
-    <div class="marble-veins" aria-hidden="true"></div>
+    <div class="marble-canvas-bg" aria-hidden="true"></div>
+    <div class="marble-veins-overlay" aria-hidden="true"></div>
     <canvas id="antique-ash-canvas" class="antique-ash-canvas" aria-hidden="true"></canvas>
 
-    <!-- Fixed Header -->
-    <header class="site-header" id="topbar">
+    <!-- Fixed Marble Header -->
+    <header class="topbar" id="topbar">
       <div class="container topbar-inner">
         <a href="index.html" class="brand-mark" aria-label="На головну сторінку Кіцманя">
           <img
@@ -96,11 +96,13 @@
 
           <article class="story-diptych reveal-on-scroll">
             <figure class="story-frame">
-              <img
-                src="images/povitovyi-sud.jpg"
-                alt="Історична кам’яна споруда в Кіцмані, пов’язана з освітнім осередком міста"
-                loading="lazy"
-              />
+              <div class="story-media-wrap">
+                <img
+                  src="images/povitovyi-sud.jpg"
+                  alt="Історична кам’яна споруда в Кіцмані, пов’язана з освітнім осередком міста"
+                  loading="lazy"
+                />
+              </div>
               <figcaption>
                 <span>Історичний навчально-адміністративний корпус</span>
                 <span>вул. Незалежності</span>
@@ -133,6 +135,24 @@
               </p>
             </div>
           </article>
+
+          <div class="bento-facts-strip reveal-on-scroll" style="margin-bottom: 36px;">
+            <div class="bento-fact-card">
+              <span class="bento-fact-year">1944</span>
+              <h4>Заснування технікуму</h4>
+              <p>Перший набір із 90 студентів на агрономічне, зоотехнічне та ветеринарне відділення.</p>
+            </div>
+            <div class="bento-fact-card">
+              <span class="bento-fact-year">1952</span>
+              <h4>Зооветеринарний центр</h4>
+              <p>Реорганізація у провідний ветеринарний навчальний заклад Північної Буковини.</p>
+            </div>
+            <div class="bento-fact-card">
+              <span class="bento-fact-year">2006</span>
+              <h4>Фаховий коледж ПДУ</h4>
+              <p>Сучасні ветеринарні лабораторії, дослідні ділянки та комп’ютерні класи.</p>
+            </div>
+          </div>
 
           <!-- Interactive Comparison Box for College -->
           <div class="compare-container reveal-on-scroll">
@@ -198,11 +218,13 @@
 
           <article class="story-diptych story-diptych--reverse reveal-on-scroll">
             <figure class="story-frame">
-              <img
-                src="images/museum.jpg"
-                alt="Кіцманська загальноосвітня школа — історичний корпус гімназії"
-                loading="lazy"
-              />
+              <div class="story-media-wrap">
+                <img
+                  src="images/museum.jpg"
+                  alt="Кіцманська загальноосвітня школа — історичний корпус гімназії"
+                  loading="lazy"
+                />
+              </div>
               <figcaption>
                 <span>Історична споруда гімназійної доби</span>
                 <span>Зведена на початку XX століття</span>
@@ -232,6 +254,10 @@
                 Івасюка, а аудиторії оснащено сучасним інтерактивним обладнанням
                 для обдарованої молоді громади.
               </p>
+              <blockquote class="editorial-pullquote">
+                «Саме в стінах кіцманської школи формувався не лише талант композитора, а й глибока любов до літератури, точних наук і рідної мови.»
+                <cite>З архівних спогадів педагогів Кіцманського ліцею</cite>
+              </blockquote>
             </div>
           </article>
 

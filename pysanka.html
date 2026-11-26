@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <div class="marble-veil" aria-hidden="true"></div>
-    <div class="marble-veins" aria-hidden="true"></div>
+    <div class="marble-canvas-bg" aria-hidden="true"></div>
+    <div class="marble-veins-overlay" aria-hidden="true"></div>
     <canvas id="antique-ash-canvas" class="antique-ash-canvas" aria-hidden="true"></canvas>
 
-    <!-- Fixed Header -->
-    <header class="site-header" id="topbar">
+    <!-- Fixed Marble Header -->
+    <header class="topbar" id="topbar">
       <div class="container topbar-inner">
         <a href="index.html" class="brand-mark" aria-label="На головну сторінку Кіцманя">
           <img
@@ -83,12 +83,14 @@
       <section class="section-block" id="oksana-savchuk">
         <div class="container">
           <article class="story-diptych reveal-on-scroll">
-            <figure class="story-frame">
-              <img
-                src="images/pysanka-ornament.svg"
-                alt="Традиційна буковинська писанка — символ дуету"
-                loading="lazy"
-              />
+            <figure class="story-frame story-frame--contain">
+              <div class="story-media-wrap">
+                <img
+                  src="images/pysanka-ornament.svg"
+                  alt="Традиційна буковинська писанка — символ дуету"
+                  loading="lazy"
+                />
+              </div>
               <figcaption>
                 <span>Традиційне буковинське писанкарство</span>
                 <span>Символ духовного відродження</span>
@@ -121,24 +123,12 @@
         </div>
       </section>
 
-      <!-- Section 2: Historic 1988 Meeting in Kitsman -->
+      <!-- Section 2: Historic 1988 Meeting in Kitsman (Dark Spotlight) -->
       <section class="section-block" id="first-meeting">
         <div class="container">
-          <article class="story-diptych story-diptych--reverse reveal-on-scroll">
-            <figure class="story-frame">
-              <img
-                src="images/tsymbaly.jpg"
-                alt="Українські цимбали — інструмент Івана Кавацюка"
-                loading="lazy"
-              />
-              <figcaption>
-                <span>Буковинські цимбали</span>
-                <span>Срібні струни Івана Кавацюка</span>
-              </figcaption>
-            </figure>
-
+          <article class="archive-spotlight reveal-on-scroll">
             <div class="story-body">
-              <span class="story-meta-badge">3 ЛИПНЯ 1988 РОКУ · КІЦМАНСЬКИЙ БУДИНОК КУЛЬТУРИ</span>
+              <span class="stone-kicker">3 ЛИПНЯ 1988 РОКУ · КІЦМАНСЬКИЙ БУДИНОК КУЛЬТУРИ</span>
               <h3>Доленосна зустріч у Кіцмані: «Балада про дві скрипки»</h3>
               <p>
                 Історія створення дуету нерозривно пов’язана з пам’яттю про
@@ -149,17 +139,25 @@
               </p>
               <p>
                 На свято прибули троїсті музики з Івано-Франківщини, серед яких
-                був віртуозний виконавець на цимбалах Іван Кавацюк (уродженець
-                гуцульського села Мишин). Просто за лаштунками кіцманської сцени
-                артисти вирішили спробувати спільний експромт.
-              </p>
-              <p>
-                Коли під срібний перелив цимбалів Івана зазвучав голос Оксани у
-                «Баладі про дві скрипки», зала в Кіцмані затамувала подих, а
-                потім вибухнула оваціями. Це була іскра, з якої народився
-                неповторний союз двох великих сердець.
+                був віртуозний виконавець на цимбалах Іван Кавацюк. Коли під
+                срібний перелив цимбалів зазвучав голос Оксани у «Баладі про
+                дві скрипки», зала в Кіцмані вибухнула оваціями.
               </p>
             </div>
+
+            <figure class="story-frame">
+              <div class="story-media-wrap">
+                <img
+                  src="images/tsymbaly.jpg"
+                  alt="Українські цимбали — інструмент Івана Кавацюка"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption>
+                <span>Буковинські цимбали</span>
+                <span>Срібні струни Івана Кавацюка</span>
+              </figcaption>
+            </figure>
           </article>
         </div>
       </section>

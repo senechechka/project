@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <div class="marble-veil" aria-hidden="true"></div>
-    <div class="marble-veins" aria-hidden="true"></div>
+    <div class="marble-canvas-bg" aria-hidden="true"></div>
+    <div class="marble-veins-overlay" aria-hidden="true"></div>
     <canvas id="antique-ash-canvas" class="antique-ash-canvas" aria-hidden="true"></canvas>
 
-    <!-- Fixed Header -->
-    <header class="site-header" id="topbar">
+    <!-- Fixed Marble Header -->
+    <header class="topbar" id="topbar">
       <div class="container topbar-inner">
         <a href="index.html" class="brand-mark" aria-label="На головну сторінку Кіцманя">
           <img
@@ -76,13 +76,8 @@
             </div>
           </div>
 
-          <!-- Subtle 3D Interactive Art Canvas (Reacts softly to cursor without manual drag) -->
-          <div class="ivasyuk-3d-stage reveal-on-scroll" id="ivasyuk-3d-stage">
-            <div class="ivasyuk-3d-caption" aria-hidden="true">
-              <span>Скульптурний 3D-образ композитора зі скрипкою</span>
-              <span>Реагує на рух курсора</span>
-            </div>
-          </div>
+          <!-- Subtle 3D Interactive House Model (1:1 birthplace house, reacts softly to cursor) -->
+          <div class="ivasyuk-3d-stage reveal-on-scroll" id="ivasyuk-3d-stage"></div>
         </div>
       </section>
 
@@ -91,11 +86,13 @@
         <div class="container">
           <article class="story-diptych reveal-on-scroll">
             <figure class="story-frame">
-              <img
-                src="images/ivasiuk-house.jpg"
-                alt="Родинний будинок Володимира Івасюка в Кіцмані"
-                loading="lazy"
-              />
+              <div class="story-media-wrap">
+                <img
+                  src="images/ivasiuk-house.jpg"
+                  alt="Родинний будинок Володимира Івасюка в Кіцмані"
+                  loading="lazy"
+                />
+              </div>
               <figcaption>
                 <span>Родинна садиба Івасюків у Кіцмані</span>
                 <span>Меморіальна дошка</span>
@@ -119,34 +116,21 @@
                 які співали на вулицях Кіцманя, занотовував перші ритми та малював
                 нотні знаки ще до того, як навчився грамоти.
               </p>
-              <p>
-                Нині на фасаді садиби встановлено меморіальну дошку, а сад біля
-                будинку зберігає пам’ять про перші дитячі мелодії майбутнього
-                Героя України.
-              </p>
+              <blockquote class="editorial-pullquote">
+                «У цьому будинку 4 березня 1949 року народився видатний український композитор Володимир Івасюк»
+                <cite>Напис на гранітній меморіальній дошці фасаду</cite>
+              </blockquote>
             </div>
           </article>
         </div>
       </section>
 
-      <!-- Section 2: Music School founded by Father -->
+      <!-- Section 2: Music School founded by Father (Contrasting Dark Spotlight + Bento Strip) -->
       <section class="section-block" id="music-school">
         <div class="container">
-          <article class="story-diptych story-diptych--reverse reveal-on-scroll">
-            <figure class="story-frame">
-              <img
-                src="images/music-school.jpg"
-                alt="Кіцманська дитяча музична школа імені Володимира Івасюка"
-                loading="lazy"
-              />
-              <figcaption>
-                <span>Кіцманська музична школа ім. В. Івасюка</span>
-                <span>Заснована 1955 року</span>
-              </figcaption>
-            </figure>
-
+          <article class="archive-spotlight reveal-on-scroll">
             <div class="story-body">
-              <span class="story-meta-badge">ОСІНЬ 1955 РОКУ · ШКІЛЬНИЙ ЛІТОПИС</span>
+              <span class="stone-kicker">ОСІНЬ 1955 РОКУ · ШКІЛЬНИЙ ЛІТОПИС</span>
               <h3>Музична школа, відкрита батьком: Володя — учень №1</h3>
               <p>
                 У повоєнні роки в райцентрі Кіцмань не було спеціалізованого
@@ -157,101 +141,98 @@
               <p>
                 Восени 1955 року дитячу музичну школу в Кіцмані було урочисто
                 відкрито. П’ятирічний Володя Івасюк став її першим учнем за
-                номером один у списку. Він обрав скрипку — інструмент, який
-                вимагає абсолютного слуху й тонкої душі, а згодом досконало
+                номером один у списку. Він обрав скрипку, а згодом досконало
                 опанував фортепіано.
               </p>
-              <p>
-                Саме в цих стінах у 1964 році 15-річний Івасюк створив дівочий
-                вокально-інструментальний ансамбль «Буковинка». Для нього юнак
-                написав свої перші пісні: «Колискова», «Ластівка», «Калиночка»,
-                з якими колектив переміг на республіканському конкурсі в Києві.
-              </p>
             </div>
+
+            <figure class="story-frame">
+              <div class="story-media-wrap">
+                <img
+                  src="images/music-school.jpg"
+                  alt="Кіцманська дитяча музична школа імені Володимира Івасюка"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption>
+                <span>Кіцманська музична школа ім. В. Івасюка</span>
+                <span>Заснована 1955 року</span>
+              </figcaption>
+            </figure>
           </article>
+
+          <div class="bento-facts-strip reveal-on-scroll">
+            <div class="bento-fact-card">
+              <span class="bento-fact-year">1955</span>
+              <h4>Перший клас скрипки</h4>
+              <p>П’ятирічний Володя зарахований під №1 у журналі новоствореної Кіцманської музичної школи.</p>
+            </div>
+            <div class="bento-fact-card">
+              <span class="bento-fact-year">1964</span>
+              <h4>Ансамбль «Буковинка»</h4>
+              <p>У 15 років композитор створив дівочий ВІА, з яким переміг на республіканському конкурсі в Києві.</p>
+            </div>
+            <div class="bento-fact-card">
+              <span class="bento-fact-year">1966</span>
+              <h4>Випуск із золотою медаллю</h4>
+              <p>Блискуче закінчення середньої та музичної шкіл перед вступом до медінституту.</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- Section 3: The Memorial Museum Room -->
+      <!-- Section 3: Memorial Museum Room & Monument Gallery -->
       <section class="section-block" id="museum-room">
         <div class="container">
-          <article class="story-diptych reveal-on-scroll">
-            <figure class="story-frame">
-              <img
-                src="images/ivasyuk-portrait.jpg"
-                alt="Володимир Івасюк — архівний портрет композитора"
-                loading="lazy"
-              />
-              <figcaption>
-                <span>Володимир Івасюк</span>
-                <span>Архівний портрет із фондів пам’яті</span>
-              </figcaption>
-            </figure>
-
-            <div class="story-body">
-              <span class="story-meta-badge">СВЯТИНЯ ПАМ’ЯТІ · МУЗЕЙНА ЕКСПОЗИЦІЯ</span>
-              <h3>Меморіальний музей-кімната в музичній школі</h3>
-              <p>
-                Сьогодні Кіцманська музична школа з гордістю носить ім’я свого
-                найвидатнішого першокласника. У будівлі школи дбайливо створено
-                меморіальний музей-кімнату композитора.
-              </p>
-              <p>
-                Серед найцінніших реліквій — автентична дитяча скрипка, на якій
-                Володя вчився видобувати перші звуки, його учнівські зошити з
-                теоретичними вправами, нотні чернетки, де народжувалися
-                симфонічні задуми, та рідкісні фотографії випускників 1960-х
-                років.
-              </p>
-              <p>
-                Викладачі школи щороку проводять дні пам'яті та обласні
-                конкурси юних композиторів і виконавців імені Володимира Івасюка,
-                передаючи новим поколінням буковинських дітей заповіт великого
-                земляка: творити українську пісню чесно й безкомпромісно.
-              </p>
+          <div class="section-header reveal-on-scroll">
+            <div>
+              <span class="stone-kicker">СВЯТИНЯ ПАМ’ЯТІ · ЕКСПОЗИЦІЯ ТА МОНУМЕНТ</span>
+              <h2 class="section-title">Музей-кімната та пам’ятник у серці Кіцманя</h2>
             </div>
-          </article>
-        </div>
-      </section>
+            <p class="section-subtitle">
+              Дбайливо збережені реліквії дитинства у стінах музичної школи та велична бронзова постать на центральній площі.
+            </p>
+          </div>
 
-      <!-- Section 4: Public Monument and Enduring Legacy -->
-      <section class="section-block" id="legacy">
-        <div class="container">
-          <article class="story-diptych story-diptych--reverse reveal-on-scroll">
-            <figure class="story-frame">
-              <img
-                src="images/ivasiuk-monument-2.jpg"
-                alt="Бронзовий монумент Володимиру Івасюку в центрі Кіцманя"
-                loading="lazy"
-              />
-              <figcaption>
-                <span>Пам’ятник В. Івасюку в центральному сквері</span>
-                <span>Відкрито 4 березня 1999 р.</span>
-              </figcaption>
-            </figure>
+          <div class="heritage-duo reveal-on-scroll">
+            <article class="heritage-card">
+              <div class="heritage-card-media heritage-card-media--contain">
+                <img
+                  src="images/ivasyuk-portrait.jpg"
+                  alt="Володимир Івасюк — архівний портрет композитора"
+                  loading="lazy"
+                />
+              </div>
+              <div class="heritage-card-body">
+                <span class="spec-label">МУЗЕЙНА ЕКСПОЗИЦІЯ</span>
+                <h3>Меморіальний музей-кімната в музичній школі</h3>
+                <p>
+                  Сьогодні Кіцманська музична школа носить ім’я свого найвидатнішого першокласника. Серед найцінніших реліквій — автентична дитяча скрипка, учнівські зошити, нотні чернетки та рідкісні світлини випускників 1960-х років.
+                </p>
+              </div>
+            </article>
 
-            <div class="story-body">
-              <span class="story-meta-badge">ЦЕНТРАЛЬНА ПЛОЩА · 1999 — СЬОГОДНІ</span>
-              <h3>Монумент зі скрипкою: вічна присутність у рідному місті</h3>
-              <p>
-                До 50-річчя від дня народження композитора, 4 березня 1999 року,
-                в центрі Кіцманя постав величний бронзовий пам’ятник (скульптори
-                Микола Посікіра, Любомир Яремчук, архітектор Михайло Федик).
-                Володимир зображений у повен зріст у фраку, притискаючи скрипку
-                до серця, немов вслухається у вічний шум буковинських верб над
-                Совицею.
-              </p>
-              <p>
-                «Мій син повернувся додому назавжди», — писав батько Михайло
-                Івасюк. Для кожного, хто приїздить до Кіцманя, цей монумент є
-                відправною точкою паломництва місцями українського генія.
-              </p>
-              <blockquote class="essay-quote">
-                «Володя не просто писав пісні — він повернув українцям гордість
-                за власну мову та мелодію в часи, коли її намагалися стерти.»
-              </blockquote>
-            </div>
-          </article>
+            <article class="heritage-card">
+              <div class="heritage-card-media">
+                <img
+                  src="images/ivasiuk-monument-2.jpg"
+                  alt="Бронзовий монумент Володимиру Івасюку в центрі Кіцманя"
+                  loading="lazy"
+                />
+              </div>
+              <div class="heritage-card-body">
+                <span class="spec-label">ЦЕНТРАЛЬНА ПЛОЩА · 4 БЕРЕЗНЯ 1999 Р.</span>
+                <h3>Монумент зі скрипкою: вічна присутність</h3>
+                <p>
+                  До 50-річчя композитора в центрі Кіцманя постав бронзовий пам’ятник (скульптори М. Посікіра, Л. Яремчук). «Мій син повернувся додому назавжди», — писав батько Михайло Івасюк.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <blockquote class="essay-quote reveal-on-scroll" style="margin-top: 36px;">
+            «Володя не просто писав пісні — він повернув українцям гордість за власну мову та мелодію в часи, коли її намагалися стерти.»
+          </blockquote>
         </div>
       </section>
     </main>
