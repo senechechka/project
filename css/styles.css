@@ -160,15 +160,27 @@ main,
   font-size: 0.84rem;
   font-weight: 500;
   color: var(--ink-secondary);
-  padding: 8px 12px;
+  padding: 8px 13px;
   border-radius: 999px;
   white-space: nowrap;
-  transition: color 180ms ease, background-color 180ms ease;
+  transition: all 180ms ease;
 }
 
 .topnav a:hover {
   color: var(--ink-primary);
   background-color: rgba(34, 38, 46, 0.06);
+}
+
+.topnav a.is-current {
+  color: #f6f5f2;
+  background-color: var(--ink-primary);
+  font-weight: 600;
+  box-shadow: 0 2px 8px -2px rgba(24, 27, 32, 0.35);
+}
+
+.topnav a.is-current:hover {
+  color: #ffffff;
+  background-color: #1a1d22;
 }
 
 .scroll-progress-track {
@@ -1609,6 +1621,514 @@ main,
   }
   .sv-pin-popover {
     width: 224px;
+  }
+
+  .subpage-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .ivasyuk-3d-stage {
+    height: 380px;
+  }
+  .story-diptych {
+    grid-template-columns: 1fr;
+  }
+  .story-diptych--reverse {
+    direction: ltr;
+  }
+  .compare-stage {
+    height: 320px;
+  }
+  .symbols-layout {
+    grid-template-columns: 1fr;
+  }
+  .pysanka-hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========================================================
+   Subpages Global Architecture (Ivasyuk, Pysanka, Education, Symbols)
+   ======================================================== */
+
+.subpage-hero {
+  padding: 130px 0 48px;
+  border-bottom: 1px solid var(--marble-border-strong);
+  position: relative;
+}
+
+.subpage-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 42px;
+  align-items: center;
+}
+
+.subpage-hero-grid--single {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 960px;
+}
+
+.subpage-lead {
+  font-size: 1.12rem;
+  line-height: 1.74;
+  color: var(--ink-secondary);
+  margin: 16px 0 28px;
+}
+
+.subpage-pill-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 15px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--marble-border);
+  font-size: 0.8rem;
+  color: var(--ink-secondary);
+  box-shadow: 0 2px 6px -1px rgba(24, 27, 32, 0.05);
+}
+
+.stat-pill strong {
+  color: var(--ink-primary);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+}
+
+/* --- Subtle 3D Interactive Hero Canvas for Volodymyr Ivasyuk --- */
+.ivasyuk-3d-stage {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.95), rgba(235, 233, 226, 0.75));
+  border: 1px solid var(--marble-border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.96), 0 24px 60px -28px rgba(24, 27, 32, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ivasyuk-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ivasyuk-3d-caption {
+  position: absolute;
+  bottom: 14px;
+  left: 18px;
+  right: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.74rem;
+  color: var(--ink-muted);
+  pointer-events: none;
+  background: rgba(252, 251, 248, 0.84);
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--marble-border);
+  backdrop-filter: blur(6px);
+}
+
+/* --- Story Diptych Layouts (Photo + Editorial Narrative) --- */
+.story-diptych {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 40px 48px;
+  align-items: center;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--marble-border);
+}
+
+.story-diptych--reverse {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+}
+
+.story-diptych--reverse > :first-child {
+  order: 2;
+}
+
+.story-diptych--reverse > :last-child {
+  order: 1;
+}
+
+.story-frame {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--marble-border);
+  background: var(--marble-slab);
+  box-shadow: 0 16px 40px -24px rgba(24, 27, 32, 0.22);
+}
+
+.story-frame img {
+  width: 100%;
+  height: auto;
+  min-height: 320px;
+  max-height: 480px;
+  object-fit: cover;
+  display: block;
+  transition: transform 400ms ease;
+}
+
+.story-frame:hover img {
+  transform: scale(1.025);
+}
+
+.story-frame figcaption {
+  padding: 10px 16px;
+  font-size: 0.78rem;
+  color: var(--ink-secondary);
+  background: rgba(252, 251, 248, 0.95);
+  border-top: 1px solid var(--marble-border);
+  display: flex;
+  justify-content: space-between;
+}
+
+.story-body h3 {
+  font-family: var(--font-serif);
+  font-size: 1.82rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink-primary);
+  margin: 8px 0 16px;
+}
+
+.story-body p {
+  font-size: 0.95rem;
+  line-height: 1.76;
+  color: var(--ink-secondary);
+  margin-bottom: 14px;
+}
+
+.story-meta-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+/* --- Interactive Before & After Comparison Slider for Education --- */
+.compare-container {
+  margin: 36px 0;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 28px;
+  border: 1px solid var(--marble-border);
+  padding: 24px;
+  box-shadow: var(--stone-shadow);
+}
+
+.compare-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.compare-stage {
+  position: relative;
+  width: 100%;
+  height: 460px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--marble-border);
+  user-select: none;
+}
+
+.compare-pane {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.compare-pane img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.compare-pane--before {
+  z-index: 1;
+  filter: grayscale(80%) sepia(20%) contrast(1.05);
+}
+
+.compare-pane--after {
+  z-index: 2;
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+  transition: clip-path 40ms linear;
+}
+
+.compare-handle-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: #ffffff;
+  z-index: 3;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.compare-handle-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--ink-primary);
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.compare-badge {
+  position: absolute;
+  bottom: 16px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  z-index: 4;
+}
+
+.compare-badge--left {
+  left: 16px;
+  background: rgba(24, 27, 32, 0.82);
+  color: #ffffff;
+}
+
+.compare-badge--right {
+  right: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink-primary);
+  border: 1px solid var(--marble-border);
+}
+
+.compare-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: ew-resize;
+  z-index: 10;
+  margin: 0;
+}
+
+/* --- Duet Pysanka Specific Styles --- */
+.pysanka-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 36px;
+  align-items: center;
+}
+
+.duet-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 36px 0;
+}
+
+.duet-feature-box {
+  background: rgba(255, 255, 255, 0.78);
+  border-radius: 22px;
+  padding: 24px;
+  border: 1px solid var(--marble-border);
+  box-shadow: var(--stone-shadow);
+}
+
+.duet-feature-box strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.28rem;
+  color: var(--ink-primary);
+  margin: 6px 0 10px;
+}
+
+.song-catalog-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.song-card {
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--marble-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.song-card strong {
+  font-size: 0.94rem;
+  color: var(--ink-primary);
+}
+
+.song-card span {
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+}
+
+/* --- Symbols & Heraldry Specific Styles --- */
+.symbols-layout {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.symbols-herb-showcase {
+  position: sticky;
+  top: 96px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--marble-border);
+  border-radius: 26px;
+  padding: 28px;
+  text-align: center;
+  box-shadow: var(--stone-shadow);
+}
+
+.symbols-herb-showcase img {
+  width: 190px;
+  height: auto;
+  margin: 0 auto 16px;
+  display: block;
+  filter: drop-shadow(0 12px 24px rgba(24, 27, 32, 0.12));
+}
+
+.heraldry-inspect-items {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.heraldry-item {
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--marble-border);
+  padding: 20px 24px;
+  transition: all 200ms ease;
+}
+
+.heraldry-item:hover {
+  background: #ffffff;
+  border-color: var(--marble-border-strong);
+  box-shadow: 0 10px 28px -14px rgba(24, 27, 32, 0.12);
+}
+
+.heraldry-item-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.heraldry-num {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--ink-primary);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(34, 38, 46, 0.08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heraldry-item-title {
+  font-family: var(--font-serif);
+  font-size: 1.28rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+  margin: 0;
+}
+
+.heraldry-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.62;
+  color: var(--ink-secondary);
+}
+
+.legends-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.legend-block {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 24px;
+  border: 1px solid var(--marble-border);
+  padding: 28px;
+  box-shadow: var(--stone-shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.legend-block-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+}
+
+.legend-block h3 {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+  margin: 0 0 14px;
+  line-height: 1.22;
+}
+
+.legend-block p {
+  margin: 0;
+  font-size: 0.91rem;
+  line-height: 1.7;
+  color: var(--ink-secondary);
+}
+
+@media (max-width: 1024px) {
+  .duet-features-grid,
+  .song-catalog-list,
+  .legends-cards-grid {
+    grid-template-columns: 1fr;
   }
 }
 

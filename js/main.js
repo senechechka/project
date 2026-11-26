@@ -238,8 +238,10 @@
     }, 155);
   }
 
-  renderTabsAndDots();
-  selectLandmark(0, true);
+  if (showcaseCard && tabsList) {
+    renderTabsAndDots();
+    selectLandmark(0, true);
+  }
 
   if (prevBtn) {
     prevBtn.addEventListener('click', function () {
@@ -558,26 +560,44 @@
     });
   });
 
-  // --- 9. Scroll Reveal Animations ---
-  var revealEls = document.querySelectorAll('.reveal-on-scroll');
-  if ('IntersectionObserver' in window && revealEls.length) {
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.14, rootMargin: '0px 0px -40px 0px' }
-    );
-    revealEls.forEach(function (el) {
-      io.observe(el);
+  // --- 10. Interactive Before/After Sliders (Education Page) ---
+  document.querySelectorAll('.compare-container').forEach(function (box) {
+    var range = box.querySelector('.compare-range');
+    var afterPane = box.querySelector('.compare-pane--after');
+    var line = box.querySelector('.compare-handle-line');
+    var btn = box.querySelector('.compare-handle-btn');
+    if (!range || !afterPane) return;
+
+    function updateCompare(val) {
+      var pct = Math.min(100, Math.max(0, parseFloat(val)));
+      afterPane.style.clipPath = 'polygon(' + pct + '% 0, 100% 0, 100% 100%, ' + pct + '% 100%)';
+      if (line) line.style.left = pct + '%';
+      if (btn) btn.style.left = pct + '%';
+    }
+
+    range.addEventListener('input', function (e) {
+      updateCompare(e.target.value);
     });
-  } else {
-    revealEls.forEach(function (el) {
-      el.classList.add('is-visible');
+    range.addEventListener('change', function (e) {
+      updateCompare(e.target.value);
+    });
+    updateCompare(range.value || 50);
+  });
+
+  // --- 11. Interactive Heraldry Inspector (Symbols Page) ---
+  var heraldryItems = document.querySelectorAll('.heraldry-item');
+  if (heraldryItems.length) {
+    heraldryItems.forEach(function (item) {
+      item.addEventListener('mouseenter', function () {
+        heraldryItems.forEach(function (other) {
+          other.style.opacity = other === item ? '1' : '0.65';
+        });
+      });
+      item.addEventListener('mouseleave', function () {
+        heraldryItems.forEach(function (other) {
+          other.style.opacity = '1';
+        });
+      });
     });
   }
 })();
