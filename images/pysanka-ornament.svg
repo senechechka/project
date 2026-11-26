@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="100%" height="100%">
+  <defs>
+    <radialGradient id="eggShade" cx="42%" cy="38%" r="65%">
+      <stop offset="0%" stop-color="#fffcf7" />
+      <stop offset="35%" stop-color="#f5e8d0" />
+      <stop offset="70%" stop-color="#df8b36" />
+      <stop offset="92%" stop-color="#8b2615" />
+      <stop offset="100%" stop-color="#3a110a" />
+    </radialGradient>
+    <linearGradient id="goldRibbon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fae29c" />
+      <stop offset="50%" stop-color="#d4af37" />
+      <stop offset="100%" stop-color="#996515" />
+    </linearGradient>
+    <filter id="pysankaShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#1c140e" flood-opacity="0.32" />
+    </filter>
+  </defs>
+
+  <g filter="url(#pysankaShadow)">
+    <!-- Traditional Bukovinian Egg Contour -->
+    <path d="M 300,45 C 475,45 545,360 545,510 C 545,675 435,755 300,755 C 165,755 55,675 55,510 C 55,360 125,45 300,45 Z" fill="url(#eggShade)" stroke="#22120c" stroke-width="6" />
+
+    <!-- Equator Band -->
+    <path d="M 55,510 C 180,560 420,560 545,510 C 420,460 180,460 55,510 Z" fill="#b32414" stroke="#fae29c" stroke-width="4" />
+    <path d="M 68,510 C 190,545 410,545 532,510" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="8 6" />
+
+    <!-- Meridian Band -->
+    <path d="M 300,45 C 345,260 345,540 300,755 C 255,540 255,260 300,45 Z" fill="#184e36" stroke="#fae29c" stroke-width="4" />
+
+    <!-- Center Sun Rosette (Сонце-Ружа / Сонячний знак життя) -->
+    <circle cx="300" cy="510" r="68" fill="#d4af37" stroke="#ffffff" stroke-width="3" />
+    <circle cx="300" cy="510" r="42" fill="#b32414" />
+    <circle cx="300" cy="510" r="16" fill="#ffffff" />
+
+    <!-- Sun Ray Petals -->
+    <g stroke="#ffffff" stroke-width="3" fill="#fae29c">
+      <polygon points="300,415 312,445 288,445" />
+      <polygon points="300,605 312,575 288,575" />
+      <polygon points="205,510 235,498 235,522" />
+      <polygon points="395,510 365,498 365,522" />
+      <polygon points="233,443 258,458 244,476" />
+      <polygon points="367,443 342,458 356,476" />
+      <polygon points="233,577 258,562 244,544" />
+      <polygon points="367,577 342,562 356,544" />
+    </g>
+
+    <!-- Upper Traditional Solar Spikes (Зоряні знаки Буковини) -->
+    <g fill="#d4af37" stroke="#22120c" stroke-width="2">
+      <polygon points="300,120 315,165 285,165" />
+      <polygon points="250,170 280,195 260,210" />
+      <polygon points="350,170 320,195 340,210" />
+      <polygon points="215,245 255,255 240,275" />
+      <polygon points="385,245 345,255 360,275" />
+    </g>
+
+    <!-- Lower Tree of Life Roots (Дерево Життя) -->
+    <g stroke="#fae29c" stroke-width="4" fill="none">
+      <path d="M 300,630 C 260,650 210,660 170,680" />
+      <path d="M 300,630 C 340,650 390,660 430,680" />
+      <path d="M 300,665 C 270,685 240,695 205,715" />
+      <path d="M 300,665 C 330,685 360,695 395,715" />
+    </g>
+
+    <!-- Frame Border Accents -->
+    <circle cx="170" cy="680" r="8" fill="#d4af37" />
+    <circle cx="430" cy="680" r="8" fill="#d4af37" />
+    <circle cx="205" cy="715" r="7" fill="#ffffff" />
+    <circle cx="395" cy="715" r="7" fill="#ffffff" />
+  </g>
+</svg>
