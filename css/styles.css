@@ -349,6 +349,7 @@ main,
   position: relative;
   height: min(88vh, 790px);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -2028,12 +2029,14 @@ main,
   line-height: 1.45;
 }
 
+.hero-statue-stage .statue-canvas-wrap {
+  height: calc(100% - 56px);
+}
+
 .hero-statue-stage .statue-caption-note {
-  position: absolute;
-  bottom: 8px;
-  left: 0;
-  right: 0;
-  margin-top: 0;
+  position: relative;
+  bottom: auto;
+  margin-top: 6px;
   pointer-events: none;
 }
 
