@@ -764,7 +764,7 @@
     figure.add(armRMesh);
 
     var handR = new THREE.Group();
-    handR.position.set(-0.435, 1.075, 0.02);
+    handR.position.set(-0.43, 1.125, 0.01);
     handR.rotation.z = -0.15;
     var palmR = new THREE.Mesh(new THREE.SphereGeometry(0.048, 12, 10), statueMat);
     palmR.scale.set(0.65, 1.25, 0.85);
