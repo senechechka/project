@@ -409,10 +409,10 @@
 
     var scene = new THREE.Scene();
 
-    // Monumental camera framing fitting full 3-tier base through windswept hair cleanly
+    // Monumental camera framing fitting full boulder base through hair cleanly
     var camera = new THREE.PerspectiveCamera(32, 1, 0.1, 45);
-    camera.position.set(0, 2.75, 10.45);
-    camera.lookAt(0, 2.58, 0);
+    camera.position.set(0, 2.28, 8.55);
+    camera.lookAt(0, 2.08, 0);
 
     // Sculptural Museum Lighting: strong warm-neutral key + cool rim + deep bounce contrast
     var hemiLight = new THREE.HemisphereLight(0xf3f5f8, 0x3b4048, 0.78);
@@ -542,252 +542,175 @@
     shadowDisc.position.y = -0.01;
     monumentRoot.add(shadowDisc);
 
-    // --- 1. Heavy 3-Tiered Stone Base Platform ---
-    var step1 = new THREE.Mesh(
-      new THREE.CylinderGeometry(1.66, 1.72, 0.16, 8),
-      stepsMat
-    );
-    step1.position.y = 0.08;
-    step1.rotation.y = Math.PI / 8;
-    step1.receiveShadow = true;
-    step1.castShadow = true;
-    monumentRoot.add(step1);
+    // --- 1. Rugged Natural Stone Boulder Base (matching reference photo!) ---
+    var boulderGeo = new THREE.BoxGeometry(2.65, 0.44, 1.72, 8, 3, 6);
+    var bPos = boulderGeo.attributes.position;
+    var bv = new THREE.Vector3();
+    for (var bi = 0; bi < bPos.count; bi++) {
+      bv.fromBufferAttribute(bPos, bi);
+      var edgeNoise =
+        Math.sin(bv.x * 2.7 + bv.z * 1.9) * 0.055 +
+        Math.cos(bv.z * 3.4 - bv.x * 1.5) * 0.04;
+      if (bv.y > 0) {
+        // Slightly sloped natural top & chamfered edges
+        bv.y += edgeNoise * 0.5 - bv.x * 0.035;
+        bv.x *= 0.92;
+        bv.z *= 0.9;
+      } else {
+        bv.x += edgeNoise * 1.1;
+        bv.z += edgeNoise * 0.9;
+      }
+      bPos.setXYZ(bi, bv.x, bv.y, bv.z);
+    }
+    boulderGeo.computeVertexNormals();
+    var boulder = new THREE.Mesh(boulderGeo, stepsMat);
+    boulder.position.set(0.06, 0.22, 0);
+    boulder.receiveShadow = true;
+    boulder.castShadow = true;
+    monumentRoot.add(boulder);
 
-    var step2 = new THREE.Mesh(
-      new THREE.CylinderGeometry(1.36, 1.42, 0.16, 8),
-      stepsMat
-    );
-    step2.position.y = 0.24;
-    step2.rotation.y = Math.PI / 8;
-    step2.receiveShadow = true;
-    step2.castShadow = true;
-    monumentRoot.add(step2);
-
-    var step3 = new THREE.Mesh(
-      new THREE.CylinderGeometry(1.06, 1.12, 0.14, 32),
-      stepsMat
-    );
-    step3.position.y = 0.39;
-    step3.receiveShadow = true;
-    step3.castShadow = true;
-    monumentRoot.add(step3);
-
-    // --- 2. Massive Tapered Granite Pedestal ---
-    var pedGeo = new THREE.CylinderGeometry(0.64, 0.88, 1.54, 4);
-    pedGeo.rotateY(Math.PI / 4);
-    var pedestal = new THREE.Mesh(pedGeo, pedestalMat);
-    pedestal.position.y = 1.23;
-    pedestal.castShadow = true;
-    pedestal.receiveShadow = true;
-    monumentRoot.add(pedestal);
-
-    var pedCap = new THREE.Mesh(
-      new THREE.BoxGeometry(0.98, 0.09, 0.98),
-      pedestalMat
-    );
-    pedCap.position.y = 2.04;
-    pedCap.castShadow = true;
-    pedCap.receiveShadow = true;
-    monumentRoot.add(pedCap);
-
-    var plaqueMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.78, 1.08),
-      plaqueMat
-    );
-    plaqueMesh.position.set(0, 1.24, 0.545);
-    plaqueMesh.rotation.x = -0.109;
-    monumentRoot.add(plaqueMesh);
-
-    // --- 3. Sculpted Heroic Bronze Figure of Volodymyr Ivasyuk (scaled up for massive weight) ---
-    var figure = new THREE.Group();
-    figure.position.y = 2.08;
-    figure.scale.setScalar(1.24);
-    monumentRoot.add(figure);
-
-    // Heavy Bronze Sculpted Plinth Disc under feet
-    var footPlinth = new THREE.Mesh(
-      createSculptedLoft(0.11, 6, 28, function (t, a) {
-        var r = 0.44 - t * 0.04 + Math.sin(a * 5) * 0.014;
-        return { rx: r, rz: r * 0.88 };
-      }),
+    // --- 2. Low Rectangular Bronze Plinth Plate with Engraved Name ---
+    var bronzeBase = new THREE.Mesh(
+      new THREE.BoxGeometry(1.16, 0.13, 0.88),
       accentMat
     );
-    footPlinth.position.y = 0.055;
-    footPlinth.castShadow = true;
-    footPlinth.receiveShadow = true;
-    figure.add(footPlinth);
+    bronzeBase.position.set(0, 0.48, 0.02);
+    bronzeBase.castShadow = true;
+    bronzeBase.receiveShadow = true;
+    monumentRoot.add(bronzeBase);
 
-    // Sculpted Heavy Shoes
+    // Engraved Front Nameplate on Bronze Plinth ("ВОЛОДИМИР ІВАСЮК")
+    var nameCanvas = document.createElement('canvas');
+    nameCanvas.width = 512;
+    nameCanvas.height = 96;
+    var nCtx = nameCanvas.getContext('2d');
+    nCtx.fillStyle = '#3a342c';
+    nCtx.fillRect(0, 0, 512, 96);
+    nCtx.fillStyle = '#b9ad97';
+    nCtx.font = 'bold 34px Georgia, serif';
+    nCtx.textAlign = 'center';
+    nCtx.textBaseline = 'middle';
+    nCtx.fillText('ВОЛОДИМИР ІВАСЮК', 256, 48);
+    var nameTex = new THREE.CanvasTexture(nameCanvas);
+    nameTex.encoding = THREE.sRGBEncoding;
+
+    var namePlate = new THREE.Mesh(
+      new THREE.PlaneGeometry(1.06, 0.11),
+      new THREE.MeshStandardMaterial({
+        map: nameTex,
+        roughness: 0.48,
+        metalness: 0.45
+      })
+    );
+    namePlate.position.set(0, 0.485, 0.464);
+    monumentRoot.add(namePlate);
+
+    // --- 3. Full-Length Standing Bronze Figure (Shirt, Belt, Jacket Over Left Shoulder) ---
+    var figure = new THREE.Group();
+    figure.position.y = 0.54;
+    figure.scale.setScalar(1.44);
+    monumentRoot.add(figure);
+
+    // Sculpted Shoes (Right leg slightly back, Left leg striding slightly forward)
     function makeShoe(x, z, rotY) {
       var shoe = new THREE.Mesh(
-        createSculptedLoft(0.095, 8, 18, function (t, a) {
-          var w = 0.082 * (1 - t * 0.16);
-          var l = 0.165 * (1 - t * 0.12);
-          return { rx: w, rz: l, cz: 0.045 * (1 - t * 0.3) };
+        createSculptedLoft(0.088, 8, 18, function (t) {
+          var w = 0.075 * (1 - t * 0.15);
+          var l = 0.155 * (1 - t * 0.12);
+          return { rx: w, rz: l, cz: 0.04 * (1 - t * 0.3) };
         }),
         accentMat
       );
-      shoe.position.set(x, 0.135, z);
+      shoe.position.set(x, 0.045, z);
       shoe.rotation.y = rotY;
       shoe.castShadow = true;
       return shoe;
     }
-    figure.add(makeShoe(-0.145, 0.02, -0.06));
-    figure.add(makeShoe(0.148, 0.05, 0.09));
+    figure.add(makeShoe(-0.135, -0.055, -0.08));
+    figure.add(makeShoe(0.138, 0.09, 0.05));
 
-    // Sculpted Heavy Trousers & Legs (viewer's left = his right leg with distinct bent knee fold!)
-    var legRightGeo = createSculptedLoft(1.04, 24, 24, function (t, a) {
-      var baseR = 0.108 + Math.sin(t * Math.PI * 0.85) * 0.022 + t * 0.032;
-      // Knee fold crease around t = 0.46
-      var kneeFold = Math.exp(-Math.pow((t - 0.46) / 0.09, 2)) * 0.018;
-      var crease = Math.sin(a * 4) * 0.008;
-      // Slight forward bend at the knee
-      var cz = Math.exp(-Math.pow((t - 0.46) / 0.22, 2)) * 0.038;
-      return {
-        rx: baseR + crease,
-        rz: baseR * 1.08 + kneeFold + crease,
-        cz: cz
-      };
+    // Right Leg (back stride)
+    var legRightGeo = createSculptedLoft(1.04, 22, 22, function (t, a) {
+      var baseR = 0.102 + Math.sin(t * Math.PI * 0.85) * 0.018 + t * 0.03;
+      var crease = Math.sin(a * 4) * 0.007;
+      return { rx: baseR + crease, rz: baseR * 1.06 + crease, cz: -0.025 * (1 - t) };
     });
     var legRight = new THREE.Mesh(legRightGeo, statueMat);
-    legRight.position.set(-0.142, 0.67, 0.015);
+    legRight.position.set(-0.132, 0.58, -0.035);
+    legRight.rotation.x = 0.05;
     legRight.castShadow = true;
     legRight.receiveShadow = true;
     figure.add(legRight);
 
-    var legLeftGeo = createSculptedLoft(1.04, 24, 24, function (t, a) {
-      var baseR = 0.106 + Math.sin(t * Math.PI * 0.85) * 0.018 + t * 0.034;
-      var crease = Math.sin(a * 3 + 0.8) * 0.007;
-      return {
-        rx: baseR + crease,
-        rz: baseR * 1.06 + crease
-      };
+    // Left Leg (forward stride)
+    var legLeftGeo = createSculptedLoft(1.04, 22, 22, function (t, a) {
+      var baseR = 0.102 + Math.sin(t * Math.PI * 0.85) * 0.018 + t * 0.03;
+      var crease = Math.sin(a * 3 + 0.7) * 0.007;
+      return { rx: baseR + crease, rz: baseR * 1.06 + crease, cz: 0.028 * (1 - t) };
     });
     var legLeft = new THREE.Mesh(legLeftGeo, statueMat);
-    legLeft.position.set(0.142, 0.67, 0.022);
+    legLeft.position.set(0.132, 0.58, 0.055);
+    legLeft.rotation.x = -0.06;
     legLeft.castShadow = true;
     legLeft.receiveShadow = true;
     figure.add(legLeft);
 
-    // Sculpted Hips & Buttoned Suit Vest Torso
-    var torsoGeo = createSculptedLoft(0.92, 24, 28, function (t, a) {
-      var waist = 1 - 0.16 * Math.exp(-Math.pow((t - 0.36) / 0.22, 2));
-      var chestExpand = 0.78 + 0.34 * Math.pow(t, 0.75);
-      var rx = 0.265 * chestExpand * waist;
-      var rz = 0.175 * chestExpand * waist;
+    // Trousers Waist & Belt with Buckle
+    var beltMesh = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.215, 0.222, 0.055, 24),
+      accentMat
+    );
+    beltMesh.scale.set(1.05, 1, 0.74);
+    beltMesh.position.set(0, 1.11, 0.01);
+    beltMesh.castShadow = true;
+    figure.add(beltMesh);
+
+    var buckle = new THREE.Mesh(
+      new THREE.BoxGeometry(0.052, 0.044, 0.022),
+      violinBodyMat
+    );
+    buckle.position.set(0, 1.11, 0.168);
+    figure.add(buckle);
+
+    // Fitted Buttoned Shirt Torso (with natural chest folds)
+    var torsoGeo = createSculptedLoft(0.84, 24, 28, function (t, a) {
+      var waist = 1 - 0.13 * Math.exp(-Math.pow((t - 0.18) / 0.22, 2));
+      var chestExpand = 0.80 + 0.34 * Math.pow(t, 0.72);
+      var rx = 0.262 * chestExpand * waist;
+      var rz = 0.172 * chestExpand * waist;
+      var shirtFold = Math.sin(a * 5 + t * 4) * 0.006 * (1 - t * 0.4);
       if (t > 0.88) {
-        var neckTaper = 1 - (t - 0.88) / 0.12 * 0.45;
+        var neckTaper = 1 - ((t - 0.88) / 0.12) * 0.45;
         rx *= neckTaper;
         rz *= neckTaper;
       }
-      return { rx: rx, rz: rz };
+      return { rx: rx + shirtFold, rz: rz + shirtFold * 0.7 };
     });
-    var torso = new THREE.Mesh(torsoGeo, accentMat);
-    torso.position.set(0, 1.54, 0.01);
+    var torso = new THREE.Mesh(torsoGeo, statueMat);
+    torso.position.set(0, 1.52, 0.01);
     torso.castShadow = true;
     torso.receiveShadow = true;
     figure.add(torso);
 
-    // Carved Vest Buttons & Bow Tie (метелик) matching reference photo
-    for (var b = 0; b < 4; b++) {
-      var btn = new THREE.Mesh(
-        new THREE.SphereGeometry(0.014, 10, 8),
-        statueMat
-      );
-      btn.position.set(0, 1.54 + b * 0.082, 0.188 - b * 0.004);
-      figure.add(btn);
-    }
-
-    var bowTie = new THREE.Group();
-    bowTie.position.set(0, 1.90, 0.155);
+    // Open Shirt Collar Flaps
     [-1, 1].forEach(function (side) {
-      var wing = new THREE.Mesh(
-        new THREE.ConeGeometry(0.032, 0.068, 6),
-        statueMat
+      var collar = new THREE.Mesh(
+        new THREE.BoxGeometry(0.085, 0.11, 0.025),
+        accentMat
       );
-      wing.rotation.z = side * Math.PI / 2;
-      wing.scale.set(0.75, 1, 0.45);
-      wing.position.x = side * 0.034;
-      bowTie.add(wing);
+      collar.position.set(side * 0.055, 1.90, 0.11);
+      collar.rotation.set(0.28, side * -0.35, side * -0.32);
+      figure.add(collar);
     });
-    var knot = new THREE.Mesh(
-      new THREE.SphereGeometry(0.018, 10, 8),
-      statueMat
-    );
-    bowTie.add(knot);
-    figure.add(bowTie);
 
-    // Sculpted Open Jacket + Sweeping Back Coat Mantle with Deep Drapery Folds
-    var coatGeo = createSculptedLoft(1.16, 28, 36, function (t, a) {
-      // Open front gap around angle = PI/2 (+Z front face)
-      var frontAngle = Math.sin(a); // +1 at front (+z), -1 at back (-z)
-      var flair = 1 + (1 - t) * 0.24;
-      var shoulderBroad = 0.84 + 0.30 * Math.pow(t, 1.3);
-      var rx = 0.295 * shoulderBroad * flair;
-      var rz = 0.215 * shoulderBroad * flair;
-
-      // Sculpt vertical bronze coat-tail folds on sides & back
-      var folds = frontAngle < 0.35 ? Math.sin(a * 7 + t * 2.0) * 0.018 * (1 - t * 0.5) : 0;
-
-      // Tuck in open chest gap at the front (+z)
-      if (frontAngle > 0.55) {
-        var gap = (frontAngle - 0.55) / 0.45;
-        rz -= gap * 0.08;
-      }
-
-      // Taper collar smoothly at very top
-      if (t > 0.90) {
-        var topCap = 1 - ((t - 0.90) / 0.10) * 0.35;
-        rx *= topCap;
-        rz *= topCap;
-      }
-
-      return { rx: rx + folds, rz: rz + folds * 0.8, cz: -0.022 };
-    });
-    var coatMesh = new THREE.Mesh(coatGeo, statueMat);
-    coatMesh.position.set(0, 1.42, 0.0);
-    coatMesh.castShadow = true;
-    coatMesh.receiveShadow = true;
-    figure.add(coatMesh);
-
-    // Sculpted Jacket Front Panels + Broad Notched Lapels (right front hangs long; left folds back behind violin)
-    function makeLapelPanel(side, lengthY) {
-      var shape = new THREE.Shape();
-      shape.moveTo(0, -lengthY);
-      shape.bezierCurveTo(0.14, -lengthY, 0.19, -lengthY * 0.5, 0.19, 0.22);
-      shape.lineTo(0.08, 0.42);
-      shape.lineTo(0.0, 0.30);
-      shape.lineTo(0.03, 0.10);
-      shape.lineTo(0, -lengthY);
-
-      var geo = new THREE.ExtrudeGeometry(shape, {
-        depth: 0.048,
-        bevelEnabled: true,
-        bevelSegments: 3,
-        bevelSize: 0.012,
-        bevelThickness: 0.014
-      });
-      var mesh = new THREE.Mesh(geo, statueMat);
-      mesh.scale.x = side;
-      mesh.position.set(side * 0.065, 1.54, 0.145);
-      mesh.rotation.y = side * -0.26;
-      mesh.castShadow = true;
-      mesh.receiveShadow = true;
-      return mesh;
-    }
-    // Viewer's left (-1): straight long tailored right coat front
-    figure.add(makeLapelPanel(-1, 0.52));
-    // Viewer's right (+1): shorter open upper lapel behind the violin & raised hand
-    figure.add(makeLapelPanel(1, 0.34));
-
-    // Sculpted Shoulder Pads blending coat seamlessly into sleeves
+    // Sculpted Shoulder Caps
     [-1, 1].forEach(function (side) {
       var cap = new THREE.Mesh(
-        new THREE.SphereGeometry(0.115, 16, 12),
+        new THREE.SphereGeometry(0.098, 16, 12),
         statueMat
       );
-      cap.scale.set(1.05, 0.85, 0.95);
-      cap.position.set(side * 0.30, 1.91, -0.01);
+      cap.scale.set(1.05, 0.85, 0.92);
+      cap.position.set(side * 0.285, 1.87, 0.0);
       cap.castShadow = true;
       figure.add(cap);
     });
@@ -827,89 +750,97 @@
       return mesh;
     }
 
-    // --- Right Arm (viewer's left: seamless relaxed hang beside right thigh) ---
+    // --- Right Arm (viewer's left: relaxed slightly outward & back at side) ---
     var armRMesh = createCurvedSleeve(
       [
-        new THREE.Vector3(-0.31, 1.92, -0.01),
-        new THREE.Vector3(-0.36, 1.66, -0.01),
-        new THREE.Vector3(-0.38, 1.42, 0.03),
-        new THREE.Vector3(-0.36, 1.18, 0.07)
+        new THREE.Vector3(-0.29, 1.87, 0.0),
+        new THREE.Vector3(-0.36, 1.60, -0.02),
+        new THREE.Vector3(-0.40, 1.36, -0.03),
+        new THREE.Vector3(-0.43, 1.13, 0.01)
       ],
-      0.098,
-      0.068
+      0.088,
+      0.056
     );
     figure.add(armRMesh);
 
     var handR = new THREE.Group();
-    handR.position.set(-0.355, 1.13, 0.075);
-    var palmR = new THREE.Mesh(new THREE.SphereGeometry(0.052, 12, 10), statueMat);
+    handR.position.set(-0.435, 1.075, 0.02);
+    handR.rotation.z = -0.15;
+    var palmR = new THREE.Mesh(new THREE.SphereGeometry(0.048, 12, 10), statueMat);
     palmR.scale.set(0.65, 1.25, 0.85);
     handR.add(palmR);
     for (var fR = 0; fR < 4; fR++) {
       var fingerR = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.012, 0.010, 0.075, 8),
+        new THREE.CylinderGeometry(0.011, 0.009, 0.072, 8),
         statueMat
       );
-      fingerR.position.set(0.006, -0.065, -0.022 + fR * 0.016);
+      fingerR.position.set(0.004, -0.062, -0.02 + fR * 0.015);
       fingerR.rotation.z = 0.14;
       handR.add(fingerR);
     }
     figure.add(handR);
 
-    // --- Left Arm (viewer's right: seamless elbow curve raising hand to heart/violin neck!) ---
+    // --- Left Arm (viewer's right: bent elbow raised to hold jacket over left shoulder!) ---
     var armLMesh = createCurvedSleeve(
       [
-        new THREE.Vector3(0.31, 1.92, -0.01),
-        new THREE.Vector3(0.38, 1.66, 0.02),
-        new THREE.Vector3(0.35, 1.50, 0.14),
-        new THREE.Vector3(0.18, 1.72, 0.23)
+        new THREE.Vector3(0.29, 1.87, 0.0),
+        new THREE.Vector3(0.41, 1.66, 0.03),
+        new THREE.Vector3(0.42, 1.56, 0.12),
+        new THREE.Vector3(0.24, 1.78, 0.17)
       ],
-      0.098,
-      0.066
+      0.088,
+      0.058
     );
     figure.add(armLMesh);
 
-    // Sculpted Left Hand resting tenderly above violin shoulder/lapel
     var handL = new THREE.Group();
-    handL.position.set(0.145, 1.765, 0.245);
-    handL.rotation.set(0.24, -0.25, 0.42);
-    var palmL = new THREE.Mesh(new THREE.SphereGeometry(0.052, 12, 10), statueMat);
-    palmL.scale.set(1.08, 0.72, 0.62);
+    handL.position.set(0.21, 1.80, 0.18);
+    handL.rotation.set(0.2, -0.3, 0.5);
+    var palmL = new THREE.Mesh(new THREE.SphereGeometry(0.048, 12, 10), statueMat);
+    palmL.scale.set(1.05, 0.72, 0.65);
     handL.add(palmL);
-    for (var fL = 0; fL < 4; fL++) {
-      var fingerL = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.011, 0.009, 0.078, 8),
-        statueMat
-      );
-      fingerL.rotation.z = Math.PI / 2 - 0.18 + fL * 0.08;
-      fingerL.position.set(-0.055, 0.018 - fL * 0.016, 0.01);
-      handL.add(fingerL);
-    }
     figure.add(handL);
 
-    // --- Violin Cradled Vertically Along Left Waist/Chest ---
-    var violin = createSculptedViolin(violinBodyMat, violinTrimMat);
-    violin.scale.set(0.92, 0.92, 0.74);
-    violin.position.set(0.155, 1.37, 0.215);
-    violin.rotation.set(0.08, 0.28, 0.05);
-    figure.add(violin);
+    // --- Sculpted Jacket Slung Over Left Shoulder (exact signature pose from photo!) ---
+    var slungJacket = new THREE.Group();
+    slungJacket.position.set(0.22, 1.66, -0.06);
+    slungJacket.rotation.set(0.14, 0.12, -0.18);
+    figure.add(slungJacket);
+
+    var jacketDrapeGeo = createSculptedLoft(0.62, 16, 20, function (t, a) {
+      var w = 0.14 + (1 - t) * 0.07;
+      var d = 0.095 + Math.sin(a * 4) * 0.015;
+      return { rx: w, rz: d };
+    });
+    var jacketDrape = new THREE.Mesh(jacketDrapeGeo, accentMat);
+    jacketDrape.castShadow = true;
+    jacketDrape.receiveShadow = true;
+    slungJacket.add(jacketDrape);
+
+    var jacketRoll = new THREE.Mesh(
+      new THREE.TorusGeometry(0.11, 0.055, 10, 18, Math.PI * 1.15),
+      accentMat
+    );
+    jacketRoll.position.set(-0.02, 0.26, 0.04);
+    jacketRoll.rotation.set(0.3, 1.2, 0.2);
+    jacketRoll.castShadow = true;
+    slungJacket.add(jacketRoll);
 
     // --- Neck & High-Res Portrait Head ---
     var neck = new THREE.Mesh(
-      createSculptedLoft(0.19, 10, 20, function (t) {
-        return { rx: 0.082 - t * 0.006, rz: 0.086 - t * 0.005 };
+      createSculptedLoft(0.18, 10, 20, function (t) {
+        return { rx: 0.078 - t * 0.005, rz: 0.082 - t * 0.004 };
       }),
       statueMat
     );
-    neck.position.set(0, 2.02, 0.02);
+    neck.position.set(0, 1.94, 0.02);
     neck.castShadow = true;
     figure.add(neck);
 
     var head = createSculptedPortraitHead(statueMat, accentMat);
-    head.position.set(0, 2.22, 0.032);
-    // Subtle heroic gaze slightly toward viewer's right (matching photo!)
-    head.rotation.y = 0.24;
-    head.rotation.x = 0.06;
+    head.position.set(0, 2.13, 0.032);
+    head.rotation.y = 0.18;
+    head.rotation.x = 0.04;
     figure.add(head);
 
     // --- 4. Floating Dust Motes around the Monument ---
@@ -1009,8 +940,8 @@
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
       var narrowBoost = w < 480 ? 1.18 : 1.0;
-      camera.position.set(0, 2.75, 10.45 * narrowBoost);
-      camera.lookAt(0, 2.58, 0);
+      camera.position.set(0, 2.28, 8.55 * narrowBoost);
+      camera.lookAt(0, 2.08, 0);
       camera.updateProjectionMatrix();
     }
 
