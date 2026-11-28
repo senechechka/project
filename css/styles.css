@@ -2013,6 +2013,46 @@ main,
   color: var(--ink-secondary);
 }
 
+/* --- Subtle Caption Under Both 3D Statues --- */
+.ivasyuk-3d-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statue-caption-note {
+  text-align: center;
+  margin-top: 6px;
+  position: relative;
+  z-index: 4;
+  line-height: 1.45;
+}
+
+.hero-statue-stage .statue-caption-note {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  margin-top: 0;
+  pointer-events: none;
+}
+
+.statue-caption-name {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+}
+
+.statue-caption-author {
+  display: block;
+  font-size: 0.74rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-muted);
+  margin-top: 2px;
+}
+
 .compare-handle-line {
   position: absolute;
   top: 0;
